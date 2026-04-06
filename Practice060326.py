@@ -68,7 +68,6 @@
 #         return 1 # base case
 #     fact=n*calc_fact(n-1)
 #     return fact
-
 # print(calc_fact(6))
 
 # n=int(input("Enter the number whose multiplication table is required: "))
@@ -76,31 +75,26 @@
 #     print(n,"X",val,"=",n*val)
 
 # n=int(input("Enter the number whose multiplication table is required: "))
-# val=1
-# while val<=10:
-#     print(n,"X",val,"=",n*val)
-#     val+=1
+# i=1
+# while (i<=10):
+#     print(n,"X",i,"=",n*i)
+#     i+=1
 
 # n=int(input("Enter the number whose fibbonacci sequence is required: "))
 # a=0
 # b=1
-# for i in range(n):
-#     if(a==0):
-#         print(a, end=" ")
-#     a,b=b,(a+b)
-#     print(a,end=" ")
+# for i in range(1,n):
+#    print(a)
+#    a,b=b,a+b
 
 # n=input("Enter the number to check whether given number is armstrong number or not: ")
 # sum=0
-# for val in n:
-#     #print(val)
-#     sum=sum+(int(val)**len(n))
+# for i in n:
+#     sum=sum+int(i)**len(n)
 # if sum==int(n):
-#     #print("sum of its own digits, each raised to the power of the total number of digits: ",sum)
-#     print("It is an Armstrong number")
+#     print("Armstrong")
 # else:
-#     #print("sum of its own digits, each raised to the power of the total number of digits: ",sum)
-#     print("It is NOT an Armstrong number")
+#     print("NOT Armstrong")
 
 # print("Program to check armstrong in a list")
 # ls=[153,155,370,375,407,410]
@@ -115,6 +109,13 @@
 #         #print("sum of its own digits, each raised to the power of the total number of digits: ",sum)
 #         print(n,"It is NOT an Armstrong number")
 
+#print("Program to find the sum of natural numbers")
+# n=int(input("Enter the number upto which the sum of natural number is required: "))
+# sum=0
+# for i in range(n+1):
+#     sum=sum+i
+# print(sum)
+
 # print("Program to find the sum of natural numbers")
 # n=int(input("Enter a natural number to find the sum: "))
 # sum=0
@@ -127,8 +128,8 @@
 # print("Program to find numbers divisible by a given number")
 # n=int(input("Enter the number: "))
 # ls=[23,34,45,67,78,89,56,43,76,67,41,39]
-# result = list(filter(lambda x : x % n == 0,ls))
-# print("the number divisible by",n,"are:",result)
+# print(list(filter(lambda x : x%n == 0, ls)))
+
 # 
 #  for i in ls:
 #     if i%n==0:
@@ -163,6 +164,18 @@
 #         return (n+sum_nat(n-1))
 # n=int(input("Enter the number: "))
 # print(sum_nat(n))
+
+# print("Check whether string is Palindrome or not")
+s=input("Enter the string to check Paliandrome: ")
+l=len(s)
+for i in range(l):
+    if s[i]==s[l-(i+1)]:
+        flag="Y"
+    else:
+        flag="N"
+if flag=="Y": print("Palindrome")
+if flag=="N": print("Not Paliandrome")
+
 
 # print("Check whether string is Palindrome or not")
 # s=input("Enter the String: ")

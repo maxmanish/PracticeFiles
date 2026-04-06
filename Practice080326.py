@@ -4,7 +4,7 @@
 # print(ls1)
 # for i in range(len(ls1)):
 #     ls1[i] = ls1[i].lower()
-# print(ls1.sort())
+# ls1.sort()
 # print(ls1)
 
 # print("program to count the number of each vowel")
@@ -81,9 +81,9 @@
 # for i in s:
 #     print(next(it), end=".")
 
-l=["Spade","Club","Hearts","Diamonds"]
-new_l=[i.upper() for i in l]
-print(new_l)
+# l=["Spade","Club","Hearts","Diamonds"]
+# new_l=[i.upper() for i in l]
+# print(new_l)
 
 # for i in l:
 #     print(i.upper())
