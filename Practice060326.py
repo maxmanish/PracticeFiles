@@ -164,17 +164,17 @@
 # n=int(input("Enter the number: "))
 # print(sum_nat(n))
 
-print("Check whether string is Palindrome or not")
-s=input("Enter the String: ")
-l=len(s)
-i=0
-flag=1
-while i<int(l/2):
-    if s[i] != s[l-i-1]:
-        flag=0
-        break
-    i+=1
-if(flag==1):
-    print("Palindrome")
-else:
-    print("Not Palindrome")
+# print("Check whether string is Palindrome or not")
+# s=input("Enter the String: ")
+# l=len(s)
+# i=0
+# flag=1
+# while i<int(l/2):
+#     if s[i] != s[l-i-1]:
+#         flag=0
+#         break
+#     i+=1
+# if(flag==1):
+#     print("Palindrome")
+# else:
+#     print("Not Palindrome")
