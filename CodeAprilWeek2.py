@@ -182,10 +182,66 @@
 # print(sum1(7))
 
 #Write a recursive function to count digits in a number
-def dcount(n):
-    l=len(n)
-    if len(n) == 1:
-        return 1
-    else:
-        return (dcount(n[:(l-1)]) + 1)
-print(dcount("12345"))
+# def dcount(n):
+#     l=len(n)
+#     if len(n) == 1:
+#         return 1
+#     else:
+#         return (dcount(n[:(l-1)]) + 1)
+# print(dcount("12345"))
+
+#Remove duplicate elements from a list (order should be preserved)
+# l=[3,5,8,9,2,1,6,8,3,22,5,72,4]
+# l2 = []
+# #l2.append(l[0])
+# for i in range(len(l)):
+#     if l[i] not in l2:
+#         l2.append(l[i])
+# print(l2)
+
+#Find the second largest element in a list
+# l=[3,5,8,9,2,1,6,8,33,22,5,72,4]
+# lr=0
+# lr2=0
+# for i in l:
+#     if i > lr:
+#         lr2 = lr
+#         lr = i
+# print("Second largest:",lr2)
+
+#Given a list of numbers, separate even and odd numbers into two lists
+# l= [1,2,3,4,5,6,7,8,9,10]
+# ls1 = []
+# ls2 = []
+# for i in l:
+#     if i % 2 == 0:
+#         ls1.append(i)
+#     else:
+#         ls2.append(i)
+# print(ls1)
+# print(ls2)
+
+#Reverse the order of words in a sentence
+# s="apple banana mango"
+# ls = s.split()
+# ls.reverse()
+# s1=" ".join(ls)
+# print(s1)
+
+#Convert a list of keys and values into a dictionary
+# k=[1,2,3,4,5]
+# v=["a","b","c","d","e"]
+# dict1 = {}
+# for i in range(len(k)):
+#     dict1[k[i]] = v[i]
+# print(dict1)
+
+#Given a string, find the longest word
+s = "a ab abc abcd xy xyz zyc pq"
+ls = s.split()
+print(ls)
+longest = ""
+for i in range(len(ls)):
+    if len(ls[i]) > len(longest):
+        longest = ls[i]
+print(longest)
