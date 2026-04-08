@@ -113,6 +113,79 @@
 # x = filter(lambda x : x if x>maxx else max , l)
 # print(maxx)
 
-l=[3,5,8,9,2,1,6,8,3,22,5,7,4]
-l1=sorted(l)
-print(l1[-1])
+# l=[3,5,8,9,2,1,6,8,3,22,5,7,4]
+# l1=sorted(l)
+# print(l1[-1])
+
+#Given a list of numbers, return a new list containing only even numbers (no loops)
+# l=[3,5,8,9,2,1,6,8,3,22,5,7,4]
+# l1 = list(filter(lambda x : x%2==0, l))
+# print(l1)
+
+# #Keep numbers greater than 10
+# l=[3,5,8,9,2,1,6,8,3,22,5,72,4]
+# l2 = list(filter(lambda x : x>10, l))
+# print(l2)
+
+# #Convert all numbers to squares (using map)
+# l=[3,5,8,9,2,1,6,8,3,22,5,72,4]
+# l3 = list(map(lambda x : x**2, l))
+# print(l3)
+
+# #From a list, square only even numbers
+# l=[3,5,8,9,2,1,6,8,3,22,5,72,4]
+# l4 = list(map(lambda x : x**2 if x%2==0 else x, l))
+# print(l4)
+
+#Given a number n, determine whether it is a Harshad number (number divisible by the sum of its digits)
+# n=input("Enter the number: ")
+# sum=0
+# for val in n:
+#     sum=sum+int(val)
+# if int(n)%sum==0:
+#     print("harshad number")
+# else:
+#     print("NOT harshad number")
+
+#Check whether a number is an Armstrong number
+# n=input("Enter the number: ")
+# sum=0
+# for val in n:
+#     sum=sum+(int(val)**len(n))
+# if sum==int(n):
+#     print("Arstrong number")
+# else:
+#     print("NOT Arstrong number")
+
+#Input a number and check if its binary representation is a palindrome
+# n=input("Enter the number: ")
+# n_b = bin(int(n))[2:]
+# if n_b==n_b[::-1]:
+#     print("Binary is Palindrome")
+# else:
+#     print("Binary is Not palindrome")
+
+#Write a recursive function to calculate factorial
+# def fact(n):
+#     if n==1:
+#         return 1
+#     else:
+#         return (n*fact(n-1))
+# print(fact(6))
+
+#Write a recursive function to calculate the sum of first N natural numbers
+# def sum1(n):
+#     if n==1:
+#         return 1
+#     else:
+#         return (n + sum1(n-1))
+# print(sum1(7))
+
+#Write a recursive function to count digits in a number
+def dcount(n):
+    l=len(n)
+    if len(n) == 1:
+        return 1
+    else:
+        return (dcount(n[:(l-1)]) + 1)
+print(dcount("12345"))
