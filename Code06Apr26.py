@@ -143,8 +143,8 @@
 # print(vo_calc(items1))
 
 # Given a dictionary, swap keys and values
-d = {"a": 1, "b": 2, "c": 3}
-new_d = {}
-for key, value in d.items():
-    new_d[value] = key
-print(new_d)
+# d = {"a": 1, "b": 2, "c": 3}
+# new_d = {}
+# for key, value in d.items():
+#     new_d[value] = key
+# print(new_d)
