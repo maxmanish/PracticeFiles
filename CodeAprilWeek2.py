@@ -237,11 +237,33 @@
 # print(dict1)
 
 #Given a string, find the longest word
-s = "a ab abc abcd xy xyz zyc pq"
-ls = s.split()
-print(ls)
-longest = ""
-for i in range(len(ls)):
-    if len(ls[i]) > len(longest):
-        longest = ls[i]
-print(longest)
+# s = "a ab abc abcd xy xyz zyc pq"
+# ls = s.split()
+# print(ls)
+# longest = ""
+# for i in range(len(ls)):
+#     if len(ls[i]) > len(longest):
+#         longest = ls[i]
+# print(longest)
+
+#Given a number n, generate a pattern where numbers mirror around the center
+# num=int(input("Enter a positive number"))
+# for i in range(1,num+1):
+#     for j in range(1,i+1):
+#         print(j,end="")
+#     for j in range(i-1,0,-1):
+#         print(j,end="")
+#     print("\n")
+
+#Given a list, compress it into (element, count) format. Example: [a,a,b,b,b,c] → [('a',2),('b',3),('c',1)]
+lst = ['a','a','b','b','b','c']
+result = []
+count = 1
+for i in range(1, len(lst)):
+    if lst[i] == lst[i-1]:
+        count += 1
+    else:
+        result.append((lst[i-1], count))
+        count = 1
+result.append((lst[-1], count))
+print(result)
