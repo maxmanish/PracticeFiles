@@ -1,11 +1,22 @@
---Identifying duplicates in a table
+--Identifying duplicates in a table (using Oracle RowID pseudo column-physical row address)
 select a,b,c, count(*) from table1 group by a,b,c having count(*) > 1;
+select rowID, a,b,c from table1 where rowID not in (SELECT MIN(ROWID) FROM table1 GROUP BY a, b, c);
 
-#deleting duplicates from a table (using Oracle RowID pseudo column-physical row address)
-DELETE FROM table1 WHERE ROWID NOT IN ( SELECT MIN(ROWID) FROM table1 GROUP BY a, b, c);
+-- SQL for total Salary paid/expense for each department where the total departmental salary is greater than 500
+Select Department, Sum(Salary) from Employee group by Department having Sum(Salary) > 500;
+-- Total salary department wise
+Select Department, Sum(Salary) as Sum_of_salary from Employee group by Department order by Sum(Salary) desc;
+
+-- SQL Query to remove leading/trailing characters(or spaces) from a column in a table
+UPDATE table_name SET column_name = TRIM(column_name);
+UPDATE table_name SET column_name = TRIM('#' FROM column_name);
+
+
+-- #deleting duplicates from a table (using Oracle RowID pseudo column-physical row address)
+DELETE FROM table1 WHERE ROWID NOT IN (SELECT MIN(ROWID) FROM table1 GROUP BY a, b, c);
 
 -- deleting duplicates from a table (Using Window Function)
-with abc as (select *, row_number() over (partition by email, name order by ID) as rn from table1);
+with abc as (select *, row_number() over (partition by a,b,c,d order by e) as rn from table1);
 delete from abc where rn > 1;
 
 -- deleting duplicates from a table (using another/secondary table)
@@ -29,11 +40,12 @@ WHERE salary < (SELECT MAX(salary) FROM employee);
 -- #Creating Tables
 Create table tab1 (name(varchar2), ID(number), email(varchar2)) values (a,b,c,3,4,5);
 Insert into tab1 values ('a','b','c',3,4,5);
-Insert into tab1 (name, email, address, ID) values ('a','b','c',3);
+Insert into tab1 (name, email, address, ID) values ('a','b','c',3); --if the number of columns to insert data is less than total columns
 
 -- #Create a table from another table
 Create table table2 as select * from table1 where <condition>;
 Create table table2 (c1,c2,c3) as select c1,c2,c3 from table1 where <condition>;
+create table t1 as select * from t2 where 1=2; --no data copy
 
 -- #Inserting data into an existing table
 Insert into tab1 values (a,b,c);
@@ -64,9 +76,9 @@ delete from address ad where exists (select name from customer c where c.addID =
 
 -- #Update syntax
 update tab1 set colname = "value"
+-- Aggregate functions, groupby and Having clause are usually used together
 
-Aggregate functions, groupby and Having clause are usually used together
-
+-- IN Clause (sub-query)
 select account from tab1 where month = "April" and account in (select account from tab1 where month = "March");
 
 -- #DB LINKS
@@ -80,5 +92,7 @@ select e.ename, d.deptname from employee e left join dept d on e.deptid = d.dept
 select e.ename, d.dname from employee e right jon dept d on e.deptid = d.deptid;
 
 -- #SELF JOIN Example
-SELECT e.emp_name AS employee, m.emp_name AS manager
-FROM employees e LEFT JOIN employees m ON e.manager_id = m.emp_id;
+SELECT e.emp_name AS employee, m.emp_name AS manager FROM employees e LEFT JOIN employees m ON e.managers_id = m.emp_id;
+
+-- CROSS Join (Gives cartesian product of all combinations)
+SELECT c.color, s.size FROM colors c CROSS JOIN sizes s;
