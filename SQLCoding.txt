@@ -1,7 +1,12 @@
-#deleting duplicates from a table
+#deleting duplicates from a table (Using Window Function)
 with abc as 
 (select *, row_number() over (partition by email, name order by ID) as rn from table1);
-
 delete from abc where rn > 1;
 
-#deleting duplicates from a table
+#deleting duplicates from a table (using Oracle RowID function)
+Delete from table1 where RowID in (select distinct rowID from table1 group by a,b,c having rowID > 1)
+
+#deleting duplicates from a table (using another table)
+insert into table2 select a,b,c from table1 group by a,b,c having count(*) > 1;
+drop table1;
+Alter table table2 rename to table1;
