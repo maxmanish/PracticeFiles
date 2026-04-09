@@ -1,0 +1,7 @@
+#deleting duplicates from a table
+with abc as 
+(select *, row_number() over (partition by email, name order by ID) as rn from table1);
+
+delete from abc where rn > 1;
+
+#deleting duplicates from a table
