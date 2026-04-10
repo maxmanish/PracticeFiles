@@ -10,13 +10,13 @@
 # ls=[1,2,3,4.5,4,3,3,3,4,4,2,1,9,23,23,2,3,4,5,5]
 # ls1=[]
 # for i in ls:
-#     if i in ls1:
-#         continue
-#     else:
+#     if i not in ls1:
 #         ls1.append(i)
+#     else:
+#         continue
 # print(ls1)
 
-# #Remove duplicates without using another list
+#Remove duplicates without using another list
 # ls=[1,2,3,4,5,4,3,3,3,4,4,2,1,9,23,23,2,3,4,5,5]
 # i = 0
 # while i < len(ls):
@@ -41,11 +41,9 @@
 # print(word_count)
 
 # Merge Two Lists into a Dictionary
-# Example:
-# Output: {"a":1, "b":2, "c":3}
-
 # key = ["a","b","c"]
 # val = [1,2,3]
+# Output: {"a":1, "b":2, "c":3}
 # dict1 = {}
 # for i in range(len(key)):
 #     dict1[key[i]] = val[i]

@@ -149,13 +149,14 @@
 # cal1 = calendar.month(year,month)
 # print(cal1)
 
-#print("sume of natural numbers using recursion function")
+#print("sum of natural numbers")
 #n=int(input("Enter the number: "))
 # sum=0
 # for i in range(n+1):
 #     sum=sum+i
 # print(sum)
 
+#print("sum of natural numbers using recursion function")
 # sum=0
 # def sum_nat(n):
 #     if (n==0):
@@ -166,15 +167,15 @@
 # print(sum_nat(n))
 
 # print("Check whether string is Palindrome or not")
-s=input("Enter the string to check Paliandrome: ")
-l=len(s)
-for i in range(l):
-    if s[i]==s[l-(i+1)]:
-        flag="Y"
-    else:
-        flag="N"
-if flag=="Y": print("Palindrome")
-if flag=="N": print("Not Paliandrome")
+# s=input("Enter the string to check Paliandrome: ")
+# l=len(s)
+# for i in range(l):
+#     if s[i]==s[l-(i+1)]:
+#         flag="Y"
+#     else:
+#         flag="N"
+# if flag=="Y": print("Palindrome")
+# if flag=="N": print("Not Paliandrome")
 
 
 # print("Check whether string is Palindrome or not")

@@ -38,10 +38,8 @@
 #         idx+=1
 
 # dict={"name":"Rahul","age":40,"work":"TCS","City":"bangalore","hobby":"cricket"}
-# for keya in dict:
-#     print(keya, ":", dict[keya])
-
-# dict={"name":"Rahul","age":40,"work":"TCS","City":"bangalore","hobby":"cricket"}
+# for x in dict:
+#     print(x, ":", dict[x])
 
 # ls=[1,3,5,6,7,8,87,6,54,5,445,5,66,5]
 # if len(ls)==0:
@@ -55,7 +53,7 @@
 # print(ls3)
 
 # dict={"name":"Rahul","age":40,"work":"TCS","City":"bangalore","hobby":"cricket"}
-# for i in dict.keys():
+# for i in dict:
 #     if (i=="name"):
 #         print("Present")
 #     else:
