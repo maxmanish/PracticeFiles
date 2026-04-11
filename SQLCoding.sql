@@ -3,7 +3,7 @@ select a,b,c, count(*) from table1 group by a,b,c having count(*) > 1;
 
 --Identifying duplicates in a table (using Oracle RowID pseudo column-physical row address)
 select rowID, a,b,c from table1 where rowID not in (SELECT MIN(ROWID) FROM table1 GROUP BY a, b, c);
-
+--------------------------------------------------------------------------------------------------------
 --deleting duplicates from a table (using another/secondary table)
 insert into table2 select a,b,c from table1 group by a,b,c;
 drop table1;
@@ -18,6 +18,9 @@ with abc as (select *, row_number() over (partition by a,b,c,d order by e) as rn
 delete from abc where rn > 1;
 --------------------------------------------------------------------------------------------------------
 --Second highest salary from Employee table
+SELECT MAX(salary) FROM employee WHERE salary < (SELECT MAX(salary) FROM employee);
+
+--Second highest salary from Employee table
 SELECT MIN(salary) 
 FROM (SELECT salary FROM (SELECT DISTINCT salary FROM employee ORDER BY salary DESC) WHERE ROWNUM < 3);
 
@@ -25,9 +28,6 @@ FROM (SELECT salary FROM (SELECT DISTINCT salary FROM employee ORDER BY salary D
 select salary from (select salary, dense_rank() over(order by salary desc) drk from employee) where drk = 2; -- Option #1 (Oracle)
 with abc as (SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) drk FROM employee) -- Option #2 (SQL Server)
 SELECT salary FROM abc WHERE drk = 2;
-
---Second highest salary from Employee table
-SELECT MAX(salary) FROM employee WHERE salary < (SELECT MAX(salary) FROM employee);
 --------------------------------------------------------------------------------------------------------
 --SQL for total Salary paid/expense for each department where the total departmental salary is greater than 500
 Select Department, Sum(Salary) from Employee group by Department having Sum(Salary) > 500;
