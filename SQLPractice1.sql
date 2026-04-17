@@ -119,3 +119,11 @@ where e1.emp_id <> e2.emp_id;
 
 -- Write a SQL query to find employees whose salary is higher than at least one other employee’s salary
 select distinct emp_id from employees where salary > (select min(salary) from employees);
+select e1.emp_id from employees e1 join employees e1 on e1.emp_id <> e2.emp_id and e1.salary > e2.salary;
+
+-- Write a SQL query to find employees whose salary is higher than ALL other employees’ salaries
+select distinct e1.emp_id from employees e1 where salary > ALL (select salary from employees e2 where e1.emp_id <> e2.emp_id)
+select distinct emp_id from employees where salary = (Select max(salary) from employees);
+
+-- Write a SQL query to find categories that have NO products
+select category_name from products p left join categories c on p.category_id = c.category_id where p.product_id is NULL;
