@@ -106,3 +106,16 @@ select customer_id from orders group by customer_id having count(order_id) = 1;
 
 -- Write a SQL query to find departments that have at least one employee but fewer than 3 employees
 select dept_id from employees group by dept_id having count(emp_id) > 1 and count(emp_id) < 3;
+
+-- Write a SQL query to find customers who placed their FIRST order in the year 2023
+select customer_id from orders group by customer_id having year(min(order_date)) = '2023';
+
+-- Write a SQL query to find employees who joined in the same hire date as at least one other employee
+select emp_id from employees e1
+where hire_date in (select hire_date from employees e2 group by hire_date having count(*) > 1);
+
+select distinct emp_id from employees e1 join employees e2 on e1.hire_date = e2.hire_date
+where e1.emp_id <> e2.emp_id;
+
+-- Write a SQL query to find employees whose salary is higher than at least one other employee’s salary
+select distinct emp_id from employees where salary > (select min(salary) from employees);
