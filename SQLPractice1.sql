@@ -2,12 +2,12 @@
 select emp_id, emp_name, salary
 from employees where salary > (Select avg(salary) from employees);
 
+-- write a SQL query to find the 2nd highest salary in the company
 select min(Salary) from
 ( select Salary from
 (select distinct Salary from employees
 order by Salary desc) where rownum < 3);
 
--- write a SQL query to find the 2nd highest salary in the company
 select salary, drk from
 (select salary, dense_rank() over(order by Salary desc) as drk
 from employees) where drk = 2;
@@ -23,6 +23,14 @@ from employees e
 where salary = (select max(salary)
     from employees e1 
     where e.dept_id = e1.dept_id);
+
+-- using joins
+select e1.emp_id, e1.emp_name, e1.salary from employees e1
+inner join 
+(select e2.dept_id, max(e2.salary) as max_salary from employees e2 group by dept_id) e3
+on e1.dept_id = e3.dept_id
+and e1.salary = e3.max_salary;
+
 
 -- write a SQL query to find departments that have more than 3 employees
 select dept_id, count(emp_id) as cnt
@@ -74,6 +82,7 @@ left outer join orders o
 on c.customer_id = o.customer_id
 and o.order_id is NULL;
 
+-- using exists
 select customer_id from customer c
 where not exists (select * from orders o where c.customer_id = o.customer_id)
 
@@ -127,3 +136,31 @@ select distinct emp_id from employees where salary = (Select max(salary) from em
 
 -- Write a SQL query to find categories that have NO products
 select category_name from products p left join categories c on p.category_id = c.category_id where p.product_id is NULL;
+
+-- Write a SQL query to find students who are NOT enrolled in any course
+select student_id from students s
+left join enrollments e on s.student_id = e.student_id
+where e.course_id is NULL;
+
+select student_id from students s
+where not exists (select course_id from enrollments e where s.student_id = e.student_id);
+
+-- Write a SQL query to find customers who have placed orders totaling more than 10,000 but have never placed a single order greater than 5,000
+/*select customer_id from orders 
+where customer_id exists (select customer_id, count(order_id) from orders where amount>5000 group by customer_id having count(order_id) = 0)
+group by customer_id having sum(amount) > 10000;*/
+
+SELECT customer_id
+FROM orders
+GROUP BY customer_id
+HAVING SUM(amount) > 10000
+AND MAX(amount) <= 5000;
+
+-- Write a SQL query to find customers who have placed orders in both the years 2022 and 2023
+select distinct customer_id from 
+(select customer_id from orders where year(order_date) = '2022') a
+join (select customer_id from orders where year(order_date) = '2023') b
+where a.customer_id = b.customer_id;
+
+select distinct customer_id from orders where year(order_date) = '2022'
+and customer_id in (select customer_id from orders where year(order_date) = '2023');
