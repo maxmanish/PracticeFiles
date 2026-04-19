@@ -1,3 +1,4 @@
+-- 17-Apr-2026
 -- Write a SQL query to find the employee(s) who earn the SECOND LOWEST salary in the company
 select employee_id from employees where salary = (select max(salary) from(
 select salary from(select distinct salary from employees order by salary asc) where rownum < 3));

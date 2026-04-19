@@ -13,9 +13,7 @@ select salary, drk from
 from employees) where drk = 2;
 
 -- write a SQL query to find the highest salary in each department
-select dept_id, max(salary)
-from employees
-group by dept_id;
+select dept_id, max(salary) from employees group by dept_id;
 
 -- write a SQL query to find employees whose salary is equal to the maximum salary in their respective department
 select emp_id, emp_name, dept_id, salary
