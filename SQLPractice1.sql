@@ -16,33 +16,27 @@ from employees) where drk = 2;
 select dept_id, max(salary) from employees group by dept_id;
 
 -- write a SQL query to find employees whose salary is equal to the maximum salary in their respective department
+-- using subqueries
 select emp_id, emp_name, dept_id, salary
 from employees e 
-where salary = (select max(salary)
-    from employees e1 
-    where e.dept_id = e1.dept_id);
+where salary = (select max(salary) from employees e1 where e.dept_id = e1.dept_id);
 
 -- using joins
-select e1.emp_id, e1.emp_name, e1.salary from employees e1
-inner join 
-(select e2.dept_id, max(e2.salary) as max_salary from employees e2 group by dept_id) e3
+select e1.emp_id, e1.emp_name, e1.salary
+from employees e1
+inner join (select e2.dept_id, max(e2.salary) as max_salary from employees e2 group by dept_id) e3
 on e1.dept_id = e3.dept_id
 and e1.salary = e3.max_salary;
 
-
 -- write a SQL query to find departments that have more than 3 employees
 select dept_id, count(emp_id) as cnt
-from employees
-group by dept_id
-having count(emp_id) > 3;
+from employees group by dept_id having count(emp_id) > 3;
 
 -- write a SQL query to find the department(s) with the highest average salary
 select dept_id, avg(salary) from employees
-group by dept_id
-having avg(salary) in (
+group by dept_id having avg(salary) in (
     select max(avg_sal) from (
-        select avg(salary) as avg_sal from employees group by dept_id)
-);
+        select avg(salary) as avg_sal from employees group by dept_id));
 
 -- write a SQL query to find employees who earn more than their department’s average salary
 select emp_id, salary from employees e1
@@ -52,13 +46,9 @@ where salary > (
     group by dept_id)
 
 -- write a SQL query to find employees who have the SAME salary as someone else in the company (i.e., duplicate salaries)
-select distinct e1.emp_name /*e2.emp_name*/ from employees e1
-join employees e2
-on e1.salary = e2.salary
-and e1.emp_id <> e2.emp_id;
+select distinct e1.emp_name /*e2.emp_name*/ from employees e1 join employees e2 on e1.salary = e2.salary and e1.emp_id <> e2.emp_id;
 
-select emp_name from employees where salary in
-(select salary from employees group by salary having count(*) > 1);
+select emp_name from employees where salary in (select salary from employees group by salary having count(*) > 1);
 
 -- write a SQL query to find the employee(s) who earn the highest salary in the company
 select emp_name from employees where salary = (select (max(salary) from employees));
@@ -71,8 +61,7 @@ create table students (student_id INT primary key, email varchar2(100) unique,
     age int check (age>=18), created_date DATE default (CURRENT_DATE));
 
 -- Write a SQL query to increase the price by 10% for all products belonging to the category 'Electronics'
-update products set price=price*(1.1)
-where category = 'Electronics';
+update products set price=price*(1.1) where category = 'Electronics';
 
 -- Write a SQL query to find customers who have NOT placed any orders
 select customer_id from customers c
@@ -86,8 +75,7 @@ where not exists (select * from orders o where c.customer_id = o.customer_id)
 
 -- Write a SQL query to delete all login records except the most recent login for each user
 -- logins(user_id, login_date)
-delete from logins l1 where login_date < 
-    (select max(login_date) from logins l2 where l1.user_id = l2.user_id);
+delete from logins l1 where login_date < (select max(login_date) from logins l2 where l1.user_id = l2.user_id);
 
 delete from logins (
     select *, row_number() over(partition by user_id order by login_date desc) as latest_login
