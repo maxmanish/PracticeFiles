@@ -34,3 +34,48 @@ on e1.dept_id = e2.dept_id
 where e1.emp_id < e2.emp_id;
 
 -- Write a SQL query to find employees whose salary is greater than their department’s average salary but is NOT the highest salary in the entire company
+select s1.emp_id, s1.salary from employees s1
+join (select avg(salary) as avg_sal, dept_id from employees group by dept_id) s2
+on s1.dept_id = s2.dept_id
+where s1.salary > s2.avg_sal
+and s1.salary < (select max(salary) from employees);
+
+-- Write a SQL query to find customers who placed orders in consecutive months (e.g., Jan & Feb, Feb & Mar, etc.), regardless of year
+SELECT DISTINCT o1.customer_id
+FROM orders o1
+JOIN orders o2 ON o1.customer_id = o2.customer_id
+AND ((YEAR(o1.order_date) = YEAR(o2.order_date) AND MONTH(o1.order_date) = MONTH(o2.order_date) + 1)
+OR (YEAR(o1.order_date) = YEAR(o2.order_date) + 1 AND MONTH(o1.order_date) = 1 AND MONTH(o2.order_date) = 12));
+
+-- Write a SQL query to find departments where all employees earn more than 50,000 AND the department has at least 3 employees
+select dept_id from employees --where salary>50000 --(incorrect) this will just filter away the main evidence that should actually disqualify the department
+group by dept_id having count(emp_id) > 3 and min(salary)>50000;
+
+-- orders(order_id, customer_id, order_date, amount)
+-- Write a SQL query to find customers who have placed more than one order, but NEVER placed two orders on the same day
+select distinct customer_id from orders
+group by customer_id
+having count(order_id) > 1
+and customer_id not in (select customer_id from orders group by customer_id, order_date having count(order_id) > 1);
+
+SELECT customer_id
+FROM orders o
+GROUP BY customer_id
+HAVING COUNT(order_id) > 1
+AND NOT EXISTS (
+SELECT 1 FROM orders x
+WHERE x.customer_id = o.customer_id
+GROUP BY x.order_date HAVING COUNT(x.order_id) > 1);
+
+-- employees(emp_id, emp_name, dept_id, salary)
+-- Write a SQL query to find employees who: earn more than at least one other employee in their department, AND earn less than the maximum salary in their department
+select emp_id from employees e1
+join (select max(salary) as max_sal, dept_id from employees group by dept_id) e2
+on e1.dept_id = e2.dept_id
+where e1.salary < e2.max_sal
+and e1.salary > (select min(salary) from employees e3 where e1.dept_id = e3.dept_id);
+
+
+select emp_id from employees e1
+where e1.salary > (select min(salary) from employees e3 where e1.dept_id = e3.dept_id)
+and e1.salary < (select max(salary) from employees e3 where e1.dept_id = e3.dept_id);

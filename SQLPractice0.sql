@@ -13,26 +13,25 @@ Alter table table2 rename to table1;
 --deleting duplicates from a table (using Oracle RowID pseudo column-physical row address)
 DELETE FROM table1 WHERE ROWID NOT IN (SELECT MIN(ROWID) FROM table1 GROUP BY a, b, c);
 
---deleting duplicates from a table (Using Window Function)
-delete from (select *, row_number() over (partition by a,b,c,d order by e) as rn from table1) where rn >1; -- Option #1 (Oracle)
-with abc as (select *, row_number() over (partition by a,b,c,d order by e) as rn from table1) -- Option #2 (SQL Server)
+--deleting duplicates from a table (Using WINDOW Function)
+delete from (select *, row_number() over (partition by a,b,c,d) as rn from table1) where rn >1; -- Option #1 (Oracle)
+with abc as (select *, row_number() over (partition by a,b,c,d) as rn from table1) -- Option #2 (SQL Server)
 delete from abc where rn > 1;
 --------------------------------------------------------------------------------------------------------
---Second highest salary from Employee table
+--Second highest salary from Employee table using MAX
 SELECT MAX(salary) FROM employee WHERE salary < (SELECT MAX(salary) FROM employee);
 
---Second highest salary from Employee table
-SELECT MIN(salary) 
-FROM (SELECT salary FROM (SELECT DISTINCT salary FROM employee ORDER BY salary DESC) WHERE ROWNUM < 3);
+--Second highest salary from Employee table using ROWNUM
+SELECT MIN(salary) FROM (SELECT salary FROM (SELECT DISTINCT salary FROM employee ORDER BY salary DESC) WHERE ROWNUM < 3);
 
---Second highest salary from Employee table (using Window function)
+--Second highest salary from Employee table (using WINDOW function)
 select salary from (select salary, dense_rank() over(order by salary desc) drk from employee) where drk = 2; -- Option #1 (Oracle)
 with abc as (SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) drk FROM employee) -- Option #2 (SQL Server)
 SELECT salary FROM abc WHERE drk = 2;
 --------------------------------------------------------------------------------------------------------
 --SQL for total Salary paid/expense for each department where the total departmental salary is greater than 500
 Select Department, Sum(Salary) from Employee group by Department having Sum(Salary) > 500;
---Total salary department wise
+--Total salary department wise with department with highest total salary at the top
 Select Department, Sum(Salary) as Sum_of_salary from Employee group by Department order by Sum(Salary) desc;
 
 --SQL Query to remove leading/trailing characters(or spaces) from a column in a table
@@ -66,9 +65,9 @@ start with 1
 increment by 1
 chache 20
 
--- DataBase Testing:
+-- Data / Database Testing:
 -- Schema validation (attribute names, datatypes, size, table structure etc)
--- Data validation (transformation logic, record count, duplication, redundant data, unnecessary spaces etc)
+-- Data validation (transformation logic, record count, duplication, redundant data, unnecessary spaces/characters)
 -- Data Integrity validation (Referential integrity, PK-FK relationship)
 -- Data constraints/rules validation (Default, Check, Not NULL)
 
