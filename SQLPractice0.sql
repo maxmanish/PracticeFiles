@@ -1,3 +1,4 @@
+-- 4-Apr-26
 --Identifying duplicates in a table (using groupby and having)
 select a,b,c, count(*) from table1 group by a,b,c having count(*) > 1;
 

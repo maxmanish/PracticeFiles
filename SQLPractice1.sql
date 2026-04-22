@@ -1,3 +1,4 @@
+-- 16-Apr-2026
 -- Write a SQL query to find all employees whose salary is greater than the average salary of the entire company
 select emp_id, emp_name, salary
 from employees where salary > (Select avg(salary) from employees);
